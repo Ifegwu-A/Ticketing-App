@@ -6,7 +6,6 @@ import { natsWrapper } from '../../nats-wrapper';
 
 it('Has a route handler listining to: /api/tickets for post requests', async () => {
   const response = await request(app).post('/api/tickets').send({});
-
   expect(response.status).not.toEqual(404);
 });
 
@@ -82,9 +81,9 @@ it('publishes an event', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'valid',
-      price: -10,
+      price: 10,
     })
-    .expect(400);
+    .expect(200);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
